@@ -16,7 +16,7 @@ def api_root(request, format=None):
         'client-create': reverse('clients-api:client-create', request=request, format=format),
         'client-type-list': reverse('clients-api:client-type-list', request=request, format=format),
         'client-type-create': reverse('clients-api:client-type-create', request=request, format=format),
-    #    '-------------------------------------------':'--------------------------------------------------',
+
         'phone-list': reverse('clients-api:phone-list', request=request, format=format),
         'phone-create': reverse('clients-api:phone-create', request=request, format=format),
         'phone-type-list': reverse('clients-api:phone-type-list', request=request, format=format),
