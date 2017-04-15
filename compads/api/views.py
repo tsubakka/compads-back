@@ -8,7 +8,7 @@ def api_root(request, format=None):
 
     router = {
         'auth-token': reverse('auth-token', request=request, format=format),
-#####
+
         'user-login': reverse('users-api:user-login', request=request, format=format),
         'user-create': reverse('users-api:user-create', request=request, format=format),
 
