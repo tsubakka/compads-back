@@ -3,19 +3,21 @@ from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
 
-from rest_framework_jwt.views import obtain_jwt_token
+from rest_framework_swagger.views import get_swagger_view
 
-from api.views import api_root
+from compads.router import common_router as router
 
 from api.urls import urlpatterns as api_urls
-from rest_framework_swagger.views import get_swagger_view
-schema_view = get_swagger_view(title='Compads API')
+from api.clients.urls import urlpatterns as client_urls
 
+schema_view = get_swagger_view(title='Compads API')
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls, name='admin'),
-    url(r'^api/$', api_root, name='api'),
+    url(r'^api/', include(router.urls)),
     url(r'^api/docs/$', schema_view),
 
 ]
+
 urlpatterns += api_urls
+urlpatterns += client_urls

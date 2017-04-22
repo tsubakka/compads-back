@@ -1,66 +1,43 @@
 from django.conf.urls import include, url
-
 import api.clients.views as views
+from compads.router import common_router as router
 
+router.register(r'clients', views.ClientViewSet, base_name='clients')
+router.register(r'client-types', views.ClientTypeViewSet, base_name='client_types' )
+router.register(r'emails', views.EmailViewSet, base_name='email')
+router.register(r'email-types', views.EmailTypeViewSet, base_name='email-types')
+router.register(r'phones', views.PhoneViewSet, base_name='phones')
+router.register(r'phone-types', views.PhoneTypeViewSet, base_name='phone-types')
+router.register(r'addresses', views.AddressViewSet, base_name='addresses')
+router.register(r'address-types', views.AddressTypeViewSet, base_name='address-types')
+router.register(r'birthdates', views.BirthDateViewSet, base_name='birthdates')
+
+client_detail = views.ClientViewSet.as_view({'get':'retrieve'},lookup_field='pk')
+client_type_detail = views.ClientTypeViewSet.as_view({'get':'retrieve'},lookup_field='pk')
+client_email_list = views.EmailViewSet.as_view({'get':'list'},lookup_field='pk')
+client_phone_list = views.PhoneViewSet.as_view({'get':'list'},lookup_field='pk')
+client_address_list = views.AddressViewSet.as_view({'get':'list'},lookup_field='pk')
+client_birthdate = views.BirthDateViewSet.as_view({'get':'list'},lookup_field='pk')
+email_detail = views.EmailViewSet.as_view({'get':'retrieve'},lookup_field='pk')
+email_type_detail = views.EmailTypeViewSet.as_view({'get':'retrieve'},lookup_field='pk')
+phone_detail = views.PhoneViewSet.as_view({'get':'retrieve'},lookup_field='pk')
+phone_type_detail = views.PhoneTypeViewSet.as_view({'get':'retrieve'},lookup_field='pk')
+address_detail = views.AddressViewSet.as_view({'get':'retrieve'},lookup_field='pk')
+address_type_detail = views.AddressTypeViewSet.as_view({'get':'retrieve'},lookup_field='pk')
+birthdate_detail = views.BirthDateViewSet.as_view({'get':'retrieve'},lookup_field='pk')
 
 urlpatterns = ([
-    
-    url(r'^$', views.ClientListAPIView.as_view(), name='client-list'),
-    url(r'^(?P<pk>[0-9]+)/$', views.ClientDetailAPIView.as_view(), name='client-detail'),
-    url(r'^create/$', views.ClientCreateAPIView.as_view(), name='client-create'),
-    url(r'^(?P<pk>[0-9]+)/edit/$', views.ClientUpdateAPIView.as_view(), name='client-update'),
-    url(r'^(?P<pk>[0-9]+)/delete/$', views.ClientDeleteAPIView.as_view(), name='client-delete'),
-    url(r'^(?P<pk>[0-9]+)/emails/$', views.ClientEmailListAPIView.as_view(), name='client-emails'),
-    url(r'^(?P<pk>[0-9]+)/phones/$', views.ClientPhoneListAPIView.as_view(), name='client-phones'),
-    url(r'^(?P<pk>[0-9]+)/addresses/$', views.ClientAddressListAPIView.as_view(), name='client-addresses'),
-    url(r'^(?P<pk>[0-9]+)/birthdate/$', views.ClientBirthDateAPIView.as_view(), name='client-birthdate'),
-
-    url(r'^client-types/$', views.ClientTypeListAPIView.as_view(), name="client-type-list"),#, namespace='users-api')),
-    url(r'^client-types/create/$', views.ClientTypeCreateAPIView.as_view(), name='client-type-create'),
-    url(r'^client-types/(?P<pk>[0-9]+)/$', views.ClientTypeDetailAPIView.as_view(), name='client-type-detail'),
-    url(r'^client-types/(?P<pk>[0-9]+)/edit/$', views.ClientTypeUpdateAPIView.as_view(), name='client-type-update'),
-    url(r'^client-types/(?P<pk>[0-9]+)/delete/$', views.ClientTypeDeleteAPIView.as_view(), name='client-type-delete'),
-
-    url(r'^birthdates/$', views.BirthDateListAPIView.as_view(), name='birthdate-list'),
-    url(r'^birthdates/(?P<pk>[0-9]+)/$', views.BirthDateDetailAPIView.as_view(), name='birthdate-detail'),
-    url(r'^birthdates/create/$', views.BirthDateCreateAPIView.as_view(), name='birthdate-create'),
-    url(r'^birthdates/(?P<pk>[0-9]+)/edit/$', views.BirthDateUpdateAPIView.as_view(), name='birthdate-update'),
-    url(r'^birthdates/(?P<pk>[0-9]+)/delete/$', views.BirthDateDeleteAPIView.as_view(), name='birthdate-delete'),
-
-    url(r'^phones/$', views.PhoneListAPIView.as_view(), name='phone-list'),
-    url(r'^phones/(?P<pk>[0-9]+)/$', views.PhoneDetailAPIView.as_view(), name='phone-detail'),
-    url(r'^phones/create/$', views.PhoneCreateAPIView.as_view(), name='phone-create'),
-    url(r'^phones/(?P<pk>[0-9]+)/edit/$', views.PhoneUpdateAPIView.as_view(), name='phone-update'),
-    url(r'^phones/(?P<pk>[0-9]+)/delete/$', views.PhoneDeleteAPIView.as_view(), name='phone-delete'),
-
-    url(r'^phone-types/$', views.PhoneTypeListAPIView.as_view(), name='phone-type-list'),
-    url(r'^phone-types/(?P<pk>[0-9]+)/$', views.PhoneTypeDetailAPIView.as_view(), name='phone-type-detail'),
-    url(r'^phone-types/create/$', views.PhoneTypeCreateAPIView.as_view(), name='phone-type-create'),
-    url(r'^phone-types/(?P<pk>[0-9]+)/edit/$', views.PhoneTypeUpdateAPIView.as_view(), name='phone-type-update'),
-    url(r'^phone-types/(?P<pk>[0-9]+)/delete/$', views.PhoneTypeDeleteAPIView.as_view(), name='phone-type-delete'),
-
-    url(r'^emails/$', views.EmailListAPIView.as_view(), name='email-list'),
-    url(r'^emails/(?P<pk>[0-9]+)/$', views.EmailDetailAPIView.as_view(), name='email-detail'),
-    url(r'^emails/create/$', views.EmailCreateAPIView.as_view(), name='email-create'),
-    url(r'^emails/(?P<pk>[0-9]+)/edit/$', views.EmailUpdateAPIView.as_view(), name='email-update'),
-    url(r'^emails/(?P<pk>[0-9]+)/delete/$', views.EmailDeleteAPIView.as_view(), name='email-delete'),
-
-    url(r'^email-types/$', views.EmailTypeListAPIView.as_view(), name='email-type-list'),
-    url(r'^email-types/(?P<pk>[0-9]+)/$', views.EmailTypeDetailAPIView.as_view(), name='email-type-detail'),
-    url(r'^email-types/create/$', views.EmailTypeCreateAPIView.as_view(), name='email-type-create'),
-    url(r'^email-types/(?P<pk>[0-9]+)/edit/$', views.EmailTypeUpdateAPIView.as_view(), name='email-type-update'),
-    url(r'^email-types/(?P<pk>[0-9]+)/delete/$', views.EmailTypeDeleteAPIView.as_view(), name='email-type-delete'),
-
-    url(r'^addresses/$', views.AddressListAPIView.as_view(), name='address-list'),
-    url(r'^addresses/(?P<pk>[0-9]+)/$', views.AddressDetailAPIView.as_view(), name='address-detail'),
-    url(r'^addresses/create/$', views.AddressCreateAPIView.as_view(), name='address-create'),
-    url(r'^addresses/(?P<pk>[0-9]+)/edit/$', views.AddressUpdateAPIView.as_view(), name='address-update'),
-    url(r'^addresses/(?P<pk>[0-9]+)/delete/$', views.AddressDeleteAPIView.as_view(), name='address-delete'),
-
-    url(r'^address-types/$', views.AddressTypeListAPIView.as_view(), name='address-type-list'),
-    url(r'^address-types/(?P<pk>[0-9]+)/$', views.AddressTypeDetailAPIView.as_view(), name='address-type-detail'),
-    url(r'^address-types/create/$', views.AddressTypeCreateAPIView.as_view(), name='address-type-create'),
-    url(r'^address-types/(?P<pk>[0-9]+)/edit/$', views.AddressTypeUpdateAPIView.as_view(), name='address-type-update'),
-    url(r'^address-types/(?P<pk>[0-9]+)/delete/$', views.AddressTypeDeleteAPIView.as_view(), name='address-type-delete'),
-
-])
+    url(r'^api/clients/(?P<pk>[0-9]+)/$', client_detail , name='client-detail'),
+    url(r'^api/client-types/(?P<pk>[0-9]+)/$', client_type_detail, name='client-type-detail'),
+    url(r'^api/clients/(?P<pk>[0-9]+)/emails/$', client_email_list, name='client-emails'),
+    url(r'^api/clients/(?P<pk>[0-9]+)/phones/$', client_phone_list, name='client-phones'),
+    url(r'^api/clients/(?P<pk>[0-9]+)/addresses/$', client_address_list, name='client-addresses'),
+    url(r'^api/clients/(?P<pk>[0-9]+)/birthdate/$', client_birthdate, name='client-birthdate'),
+    url(r'^api/emails/(?P<pk>[0-9]+)/$', email_detail , name='email-detail'),
+    url(r'^api/email-types/(?P<pk>[0-9]+)/$', email_type_detail, name='email-type-detail'),
+    url(r'^api/phones/(?P<pk>[0-9]+)/$', phone_detail , name='phone-detail'),
+    url(r'^api/phone-types/(?P<pk>[0-9]+)/$', phone_type_detail, name='phone-type-detail'),
+    url(r'^api/addresses/(?P<pk>[0-9]+)/$', address_detail , name='address-detail'),
+    url(r'^api/address-types/(?P<pk>[0-9]+)/$', address_type_detail, name='address-type-detail'),
+    url(r'^api/birthdates/(?P<pk>[0-9]+)/$', birthdate_detail, name='birthdate-detail'),
+]);

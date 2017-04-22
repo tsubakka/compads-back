@@ -54,7 +54,7 @@ class PhoneType(models.Model):
 class Phone(models.Model):
     client = models.ForeignKey(Client, related_name="client_phones")
     phone_type = models.ForeignKey(PhoneType, on_delete=models.PROTECT)
-    country = models.IntegerField(blank=False, null=False)
+    country_code = models.IntegerField(blank=False, null=False)
     area_code = models.IntegerField(blank=False, null=False)
     phone_number = models.IntegerField(blank=False, null=False)
     def __unicode__(self):
