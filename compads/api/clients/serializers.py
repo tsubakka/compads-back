@@ -117,8 +117,9 @@ class ClientSerializer(ClientListModeModelSerializer):
     client_emails =  EmailSerializer(many=True, read_only=True)
     client_phones =  PhoneSerializer(many=True, read_only=True)
     client_addresses =  AddressSerializer(many=True, read_only=True)
-    client_birthdate =  BirthDateSerializer(read_only=True)
+    #client_birthdate =  BirthDateSerializer(read_only=True)
     client_type_text = serializers.ReadOnlyField(source='client_type.client_type')
+
     class Meta:
         model = models.Client
         fields = '__all__'

@@ -17,8 +17,10 @@ class Client(models.Model):
     first_name = models.TextField(blank=True, null=True)
     last_name = models.TextField(blank=True, null=True)
     company_name = models.TextField(blank=True, null=True)
+    bank_account_number = models.TextField(blank=True, null=True)
     tax_number = models.TextField(blank=True, null=True)
     registration_number = models.TextField(blank=True, null=True)
+    birthdate = models.DateField(null=True, blank=True)
     class Meta:
         verbose_name = "Client"
         verbose_name_plural = "Clients"
@@ -42,6 +44,12 @@ class Client(models.Model):
             uc= (self.company_name)
         return uc
 
+    def nev(self):
+        if self.client_type_id == 1:
+            uc= '%s %s' % (self.first_name, self.last_name)
+        else:
+            uc= (self.company_name)
+        return uc
 ################################################################################
 
 class PhoneType(models.Model):

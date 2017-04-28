@@ -39,11 +39,21 @@ class EmailViewSet(viewsets.ModelViewSet):
     filter_backends= [filters.SearchFilter, filters.OrderingFilter]
     search_fields = ['email_address']
     permission_classes = [permissions.IsAuthenticated]
+    queryset =  models.Email.objects.all()
+
+################################################################################
+
+class ClientEmailViewSet(viewsets.ModelViewSet):
+    serializer_class = serializers.EmailSerializer
+    pagination_class = pagination.DefaultPageNumberPagination #PageNumberPagination
+    filter_backends= [filters.SearchFilter, filters.OrderingFilter]
+    search_fields = ['email_address']
+    permission_classes = [permissions.IsAuthenticated]
     def get_queryset(self, *args, **kwargs):
         queryset =  models.Email.objects.all()
         if 'pk' in self.kwargs:
-            queryset = models.Email.objects.filter(client_id=self.kwargs['pk'])
-        return queryset
+           queryset = models.Email.objects.filter(client_id=self.kwargs['pk'])
+           return queryset
 
 ################################################################################
 
@@ -57,6 +67,15 @@ class EmailTypeViewSet(viewsets.ModelViewSet):
 ################################################################################
 
 class PhoneViewSet(viewsets.ModelViewSet):
+    serializer_class = serializers.PhoneSerializer
+    filter_backends= [filters.SearchFilter, filters.OrderingFilter]
+    search_fields = ['phone_number', 'area_code', 'country_code']
+    permission_classes = [permissions.IsAuthenticated]
+    queryset =  models.Phone.objects.all()
+
+################################################################################
+
+class ClientPhoneViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.PhoneSerializer
     filter_backends= [filters.SearchFilter, filters.OrderingFilter]
     search_fields = ['phone_number', 'area_code', 'country_code']
@@ -84,6 +103,16 @@ class AddressViewSet(viewsets.ModelViewSet):
     filter_backends= [filters.SearchFilter, filters.OrderingFilter]
     search_fields = ['country','region','station','zip_code','address1','address2']
     permission_classes = [permissions.IsAuthenticated]
+    queryset =  models.Address.objects.all()
+
+################################################################################
+
+class ClientAddressViewSet(viewsets.ModelViewSet):
+    queryset = models.Address.objects.all()
+    serializer_class = serializers.AddressSerializer
+    filter_backends= [filters.SearchFilter, filters.OrderingFilter]
+    search_fields = ['country','region','station','zip_code','address1','address2']
+    permission_classes = [permissions.IsAuthenticated]
     def get_queryset(self, *args, **kwargs):
         queryset =  models.Address.objects.all()
         if 'pk' in self.kwargs:
@@ -106,6 +135,15 @@ class BirthDateViewSet(viewsets.ModelViewSet):
     filter_backends= [filters.SearchFilter, filters.OrderingFilter]
     search_fields = ['year','month','day']
     permission_classes = [permissions.IsAuthenticated]
+    queryset =  models.BirthDate.objects.all()
+
+################################################################################
+
+class ClientBirthDateViewSet(viewsets.ModelViewSet):
+    serializer_class = serializers.BirthDateSerializer
+    filter_backends= [filters.SearchFilter, filters.OrderingFilter]
+    search_fields = ['year','month','day']
+    permission_classes = [permissions.IsAuthenticated]
     def get_queryset(self, *args, **kwargs):
         queryset =  models.BirthDate.objects.all()
         if 'pk' in self.kwargs:
@@ -113,7 +151,6 @@ class BirthDateViewSet(viewsets.ModelViewSet):
         return queryset
 
 ################################################################################
-
 
 
 
