@@ -128,6 +128,7 @@ DATABASES = {
     }
 }
 """
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -143,6 +144,19 @@ DATABASES = {
     },
 
 }
+"""
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'compadsback',
+        'USER': 'compadsback',
+        'PASSWORD': 'compadsback',
+        'HOST': 'localhost',
+        'PORT': '',
+    }
+}
+
+
 
 
 # Password validation
